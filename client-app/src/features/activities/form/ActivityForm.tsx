@@ -4,6 +4,7 @@ import { Activity } from "../../../app/models/activity";
 
 interface Props {
   activity: Activity | undefined;
+  submitting: boolean;
   closeForm: () => void;
   createOrEdit: (activity: Activity) => void;
 }
@@ -12,6 +13,7 @@ export default function ActivityForm({
   activity: selectedActivity,
   closeForm,
   createOrEdit,
+  submitting,
 }: Props) {
   const initialState = selectedActivity ?? {
     id: "",
@@ -62,6 +64,7 @@ export default function ActivityForm({
           placeholder="Date"
           value={activity.date}
           name="date"
+          type="date"
           onChange={handleInputChange}
         />
         <Form.Input
@@ -77,7 +80,13 @@ export default function ActivityForm({
           onChange={handleInputChange}
         />
 
-        <Button floated="right" positive type="submit" content="Submit" />
+        <Button
+          loading={submitting}
+          floated="right"
+          positive
+          type="submit"
+          content="Submit"
+        />
         <Button
           onClick={closeForm}
           floated="right"
